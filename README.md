@@ -8,7 +8,7 @@ O objetivo deste desafio é avaliar as competências técnicas dos candidatos a 
 Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula do Aluno na Turma de Programação Web da instituição EdTech. Regras e requisitos técnicos estão detalhadas neste documento.
 
 # Especificações Técnicas
-- **Front End:** [Vuetifyjs](https://vuetifyjs.com/en/)  como framework de UI
+- **Front End:** Vue.js com [Vuetifyjs](https://vuetifyjs.com/en/)  como framework de UI
 - **API:** php com framework Laravel
 - **Banco de Dados:** Postgress ou MySQL
 - **Idioma de escrita do código:** Inglês
