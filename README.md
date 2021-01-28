@@ -11,6 +11,7 @@ Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula d
 - **Front End:** Vue.js com [Vuetifyjs](https://vuetifyjs.com/en/)  como framework de UI
 - **API:** php com framework Laravel
 - **Banco de Dados:** Postgress ou MySQL
+- **Deploy:** Front no [netlify](https://www.netlify.com/) (ou semelhante) e Back no [Heroku](https://www.heroku.com/) ou semelhante
 - **Idioma de escrita do código:** Inglês
 
 
