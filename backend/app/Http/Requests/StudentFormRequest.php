@@ -23,7 +23,7 @@ class StudentFormRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3)??0;
+        $id = $this->segment(4)??0;
 
         return [
             'name'  => ['required', 'min:3', 'max:150'],
