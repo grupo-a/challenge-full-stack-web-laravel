@@ -14,16 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
+Route::get('/', function () {
     return response()->json(["apiStatus" => "healthy"], 200);
 });
 
-Route::group(['prefix' => 'alunos'], function(){
-    Route::get('/', function(){
+Route::group(['prefix' => 'alunos'], function () {
+    Route::get('/', function () {
         $studentController = new StudentController;
         return response()->json($studentController->index(), 200);
     });
-    Route::get('/{id}', function($id){
+
+    Route::get('/{id}', function ($id) {
         $studentController = new StudentController;
         return response()->json($studentController->show($id), 200);
     });
