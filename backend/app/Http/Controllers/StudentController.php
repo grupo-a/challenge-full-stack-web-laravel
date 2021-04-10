@@ -21,14 +21,15 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        try {
-            $resourceStudent = new ResourcesStudent(Student::findOrFail($id));
-            return $resourceStudent
-                ->response()
-                ->setStatusCode(200);
-        } catch (ModelNotFoundException $e) {
+        $student = $this->getStudentById($id);
+        if (!isset($student)) {
             return response()->json(['error' => 'Aluno não encontrado! Verifique o identificador informado.'])->setStatusCode(404);
         }
+
+        $studentResource = new ResourcesStudent($student);
+        return $studentResource
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function store(Request $request)
@@ -45,6 +46,16 @@ class StudentController extends Controller
         return $resourceStudent
             ->response()
             ->setStatusCode(201);
+    }
+
+    private function getStudentById($id)
+    {
+        try {
+            $student = Student::findOrFail($id);
+            return $student;
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
     }
 
     private function validateStudentRequest($request, $with_required)
