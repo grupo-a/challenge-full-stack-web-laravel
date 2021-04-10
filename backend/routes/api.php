@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,10 @@ Route::group(['prefix' => 'alunos'], function () {
         $response = $studentController->show($id);
         return $response;
     });
+
+    Route::post('/', function (Request $request) {
+        $studentController = new StudentController;
+        $response = $studentController->store($request);
+        return $response;
     });
 });
