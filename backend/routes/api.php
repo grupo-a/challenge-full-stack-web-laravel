@@ -23,4 +23,8 @@ Route::group(['prefix' => 'alunos'], function(){
         $studentController = new StudentController;
         return response()->json($studentController->index(), 200);
     });
+    Route::get('/{id}', function($id){
+        $studentController = new StudentController;
+        return response()->json($studentController->show($id), 200);
+    });
 });
