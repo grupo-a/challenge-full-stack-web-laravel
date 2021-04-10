@@ -43,4 +43,10 @@ Route::group(['prefix' => 'alunos'], function () {
         $response = $studentController->edit($id, $request);
         return $response;
     });
+
+    Route::delete('/{id}', function ($id) {
+        $studentController = new StudentController;
+        $response = $studentController->delete($id);
+        return $response;
+    });
 });

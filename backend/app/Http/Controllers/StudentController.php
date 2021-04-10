@@ -76,6 +76,18 @@ class StudentController extends Controller
             ->setStatusCode(200);
     }
 
+    public function delete($student_id)
+    {
+        $student = $this->getStudentById($student_id);
+        if (!isset($student)) {
+            return response()->json(['error' => 'Aluno não encontrado! Verifique o identificador informado.'])->setStatusCode(404);
+        }
+
+        $student->delete();
+
+        return response()->noContent();
+    }
+
     private function getStudentById($id)
     {
         try {
