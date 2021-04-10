@@ -33,25 +33,9 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
-            'name' => 'required|max:200',
-            'email' => 'required|max:100',
-            'academic_register' => 'required|max:40',
-            'cpf' => 'required|size:11',
-        ];
-
-        $messages = [
-            'name.required' => "O campo nome é obrigatório.",
-            'email.required' => "O campo email é obrigatório.",
-            'academic_register.required' => "O campo registro acadêmico é obrigatório.",
-            'cpf.required' => "O campo cpf é obrigatório.",
-            'cpf.size' => "O campo cpf deve conter 11 dígitos, somente números."
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return response($errors)->setStatusCode(400);
+        $responseValidation = $this->validateStudentRequest($request, true);
+        if (isset($responseValidation)) {
+            return $responseValidation;
         }
 
         $student = Student::create($request->all());
@@ -61,5 +45,49 @@ class StudentController extends Controller
         return $resourceStudent
             ->response()
             ->setStatusCode(201);
+    }
+
+    private function validateStudentRequest($request, $with_required)
+    {
+        $rules = $this->getStudentValidationRules($with_required);
+
+        $messages = $this->getStudentMessageRules($with_required);
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response($errors)->setStatusCode(400);
+        }
+    }
+
+    private function getStudentValidationRules($with_required)
+    {
+        $rules = [
+            'name' => ($with_required ? "required|" : "") . 'max:200',
+            'email' => ($with_required ? "required|" : "") . 'max:100',
+            'academic_register' => ($with_required ? "required|" : "") . 'max:40',
+            'cpf' => ($with_required ? "required|" : "") . 'size:11',
+        ];
+
+        return $rules;
+    }
+
+    private function getStudentMessageRules($with_required)
+    {
+        $required_messages = [
+            'name.required' => "O campo nome é obrigatório.",
+            'email.required' => "O campo email é obrigatório.",
+            'academic_register.required' => "O campo registro acadêmico é obrigatório.",
+            'cpf.required' => "O campo cpf é obrigatório.",
+        ];
+
+        $size_messages = [
+            'name.max' => "O campo nome pode conter no máximo 200 caracteres",
+            'email.max' => "O campo email pode conter no máximo 100 caracteres",
+            'academic_register.max' => "O campo registro acadêmico pode conter no máximo 40 caracteres",
+            'cpf.size' => "O campo cpf deve conter 11 dígitos, somente números."
+        ];
+
+        return array_merge(($with_required ? $required_messages : []), $size_messages);
     }
 }
