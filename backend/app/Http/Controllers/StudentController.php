@@ -35,7 +35,7 @@ class StudentController extends Controller
     {
         $rules = [
             'name' => 'required|max:200',
-            'email' => 'required|max:200',
+            'email' => 'required|max:100',
             'academic_register' => 'required|max:40',
             'cpf' => 'required|size:11',
         ];
