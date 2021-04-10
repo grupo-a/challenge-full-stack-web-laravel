@@ -26,10 +26,7 @@ class StudentController extends Controller
             return response()->json(['error' => 'Aluno não encontrado! Verifique o identificador informado.'])->setStatusCode(404);
         }
 
-        $studentResource = new ResourcesStudent($student);
-        return $studentResource
-            ->response()
-            ->setStatusCode(200);
+        return $this->makeResponseWithStudentResource($student, 200);
     }
 
     public function store(Request $request)
@@ -41,11 +38,7 @@ class StudentController extends Controller
 
         $student = Student::create($request->all());
 
-        $resourceStudent = new ResourcesStudent($student);
-
-        return $resourceStudent
-            ->response()
-            ->setStatusCode(201);
+        return $this->makeResponseWithStudentResource($student, 201);
     }
 
     public function edit($student_id, Request $request)
@@ -69,11 +62,7 @@ class StudentController extends Controller
 
         $student->save();
 
-        $resourceStudent = new ResourcesStudent($student);
-
-        return $resourceStudent
-            ->response()
-            ->setStatusCode(200);
+        return $this->makeResponseWithStudentResource($student, 200);
     }
 
     public function delete($student_id)
@@ -96,6 +85,15 @@ class StudentController extends Controller
         } catch (ModelNotFoundException $e) {
             return null;
         }
+    }
+
+    private function makeResponseWithStudentResource($student, $status_code)
+    {
+        $resourceStudent = new ResourcesStudent($student);
+
+        return $resourceStudent
+            ->response()
+            ->setStatusCode($status_code);
     }
 
     private function validateStudentRequest($request, $with_required)
