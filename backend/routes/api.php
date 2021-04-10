@@ -37,4 +37,10 @@ Route::group(['prefix' => 'alunos'], function () {
         $response = $studentController->store($request);
         return $response;
     });
+
+    Route::put('/{id}', function ($id, Request $request) {
+        $studentController = new StudentController;
+        $response = $studentController->edit($id, $request);
+        return $response;
+    });
 });

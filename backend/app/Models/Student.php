@@ -17,4 +17,10 @@ class Student extends Model
         'academic_register',
         'cpf'
     ];
+
+    public $editable = [
+        'name',
+        'email',
+        'cpf',
+    ];
 }

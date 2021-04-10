@@ -48,6 +48,34 @@ class StudentController extends Controller
             ->setStatusCode(201);
     }
 
+    public function edit($student_id, Request $request)
+    {
+        $student = $this->getStudentById($student_id);
+        if (!isset($student)) {
+            return response()->json(['error' => 'Aluno não encontrado! Verifique o identificador informado.'])->setStatusCode(404);
+        }
+
+        $responseValidation = $this->validateStudentRequest($request, false);
+
+        if (isset($responseValidation)) {
+            return $responseValidation;
+        }
+
+        foreach ($request->all() as $property_name => $property_value) {
+            if (in_array($property_name, $student->editable)) {
+                $student->$property_name = $property_value;
+            }
+        };
+
+        $student->save();
+
+        $resourceStudent = new ResourcesStudent($student);
+
+        return $resourceStudent
+            ->response()
+            ->setStatusCode(200);
+    }
+
     private function getStudentById($id)
     {
         try {
