@@ -12,15 +12,17 @@ class StudentController extends Controller
 {
     public function index()
     {
-        return new StudentCollection(Student::all());
+        $studentCollection = new StudentCollection(Student::all());
+        return $studentCollection->response()->setStatusCode(200);
     }
 
     public function show($id)
     {
         try {
-            return new ResourcesStudent(Student::findOrFail($id));
-        } catch (ModelNotFoundException $ex) {
-            throw new HttpException(404, 'Aluno não encontrado!\nVerifique o identificador informado.');
+            $resourceStudent = new ResourcesStudent(Student::findOrFail($id));
+            return $resourceStudent->response()->setStatusCode(200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Aluno não encontrado! Verifique o identificador informado.'])->setStatusCode(404);
         }
     }
 }

@@ -21,11 +21,14 @@ Route::get('/', function () {
 Route::group(['prefix' => 'alunos'], function () {
     Route::get('/', function () {
         $studentController = new StudentController;
-        return response()->json($studentController->index(), 200);
+        $response = $studentController->index();
+        return $response;
     });
 
     Route::get('/{id}', function ($id) {
         $studentController = new StudentController;
-        return response()->json($studentController->show($id), 200);
+        $response = $studentController->show($id);
+        return $response;
+    });
     });
 });
