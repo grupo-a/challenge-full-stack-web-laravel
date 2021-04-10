@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     return response()->json(["apiStatus" => "healthy"], 200);
+});
+
+Route::group(['prefix' => 'alunos'], function(){
+    Route::get('/', function(){
+        $studentController = new StudentController;
+        return response()->json($studentController->index(), 200);
+    });
 });
