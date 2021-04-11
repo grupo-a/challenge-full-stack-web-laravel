@@ -19,7 +19,7 @@ Route::get('/', function () {
     return response()->json(["apiStatus" => "healthy"], 200);
 });
 
-Route::group(['prefix' => 'alunos'], function () {
+Route::group(['prefix' => 'students'], function () {
     Route::get('/', function () {
         $studentController = new StudentController;
         $response = $studentController->index();
