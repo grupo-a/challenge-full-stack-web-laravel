@@ -1,26 +1,32 @@
 <template>
   <div class="content">
-    <div class="header">
-      <h1>Alunos</h1>
-    </div>
-    <div class="content">
-      <table>
-        <th>
-          <td>Nome</td>
-        </th>
-        <tr>
-          <td>Willian</td>
-        </tr>
-      </table>
-    </div>
-    <div class="footer">
-      <h6>Grupo A</h6>
+    <div class="student-data">
+      <v-container>
+        <v-row v-for="student in students" :key="student.id">
+          <v-col> {{ student.name }} </v-col>
+          <v-col> {{ student.cpf }} </v-col>
+          <v-col> {{ student.email }} </v-col>
+          <v-col> {{ student.academic_register }} </v-col>
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
 
 <script>
+import api from "../services/api";
+
 export default {
   name: "Student",
+  data() {
+    return {
+      students: [],
+    };
+  },
+  mounted() {
+    api
+      .get("/students")
+      .then((response) => (this.students = response.data.data));
+  },
 };
 </script>
