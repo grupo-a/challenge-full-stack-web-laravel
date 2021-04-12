@@ -2,6 +2,7 @@
   <div class="content">
     <div class="header">
       <Search :onSearch="handleSearch" />
+      <Button route="create" caption="Adicionar"/>
     </div>
     <div class="student-data">
       <v-container>
@@ -19,11 +20,13 @@
 <script>
 import api from "../services/api";
 import Search from "@/components/Search";
+import Button from "@/components/Button";
 
 export default {
   name: "Student",
   components: {
     Search,
+    Button,
   },
   data() {
     return {

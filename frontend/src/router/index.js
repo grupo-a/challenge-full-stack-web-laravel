@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from "vue-router";
-import Student from "../components/Student.vue";
-import Home from "../components/Home.vue";
+import Student from "../views/Student.vue";
+import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
