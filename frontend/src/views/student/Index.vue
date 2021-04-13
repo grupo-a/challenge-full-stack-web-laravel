@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import api from "../services/api";
+import api from "@/services/api";
 import Search from "@/components/Search";
 import Button from "@/components/Button";
 
