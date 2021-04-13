@@ -41,6 +41,7 @@
               placeholder="Informe o registro acadêmico"
               label="Registro Acadêmico"
               counter=40
+              :disabled=editionMode
             ></v-text-field>
           </v-col>
 
@@ -54,6 +55,7 @@
               placeholder="Informe o número do documento"
               label="CPF"
               counter=11
+              :disabled=editionMode
             ></v-text-field>
           </v-col>
         </v-row>
@@ -74,11 +76,13 @@ export default {
   components: {
     Button
   },
+  props: ["student_id"],
   data() {
     return {
       name: "",
       email: "",
       academic_register: "",
+      editionMode: false,
       cpf: "",
       nameRules: [
         v => !!v || 'Informe o nome completo',
@@ -100,6 +104,19 @@ export default {
       ]
     };
   },
+  mounted(){
+    if (this.student_id){
+      api.get(`students/${this.student_id}`)
+      .then((response)=>{
+        let dados = response.data.data;
+        this.name = dados.name;
+        this.email = dados.email;
+        this.cpf = dados.cpf;
+        this.academic_register = dados.academic_register;
+        this.editionMode = true;
+      })
+    }
+  },
   methods:{
     validate () {
       return this.$refs.form.validate();
@@ -109,6 +126,13 @@ export default {
         return;
       }
 
+      if (this.student_id){
+        this.updateStudent()
+      } else {
+        this.insertStudent()
+      }
+    },
+    insertStudent(){
       api.post(
         "/students",
         {
@@ -121,12 +145,31 @@ export default {
       .then((response) => {
         if (response.status == 201){
           this.$router.replace('/student');
-          this.$alert("Aluno incluído com sucesso.");
+          this.$alert("Aluno incluído!");
         }
       })
       .catch(() => {
         this.$alert("Ocorreu um erro inesperado.");
       });
+    },
+    updateStudent(){
+      api.put(
+          `students/${this.student_id}`,
+          {
+            "name": this.name,
+            "cpf": this.cpf,
+            "email": this.email
+          }
+        )
+        .then((response) => {
+          if (response.status == 200){
+            this.$router.replace('/student');
+            this.$alert("Aluno atualizado!");
+          }
+        })
+        .catch(() => {
+          this.$alert("Ocorreu um erro inesperado.");
+        });
     }
   }
 };

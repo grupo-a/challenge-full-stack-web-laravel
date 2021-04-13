@@ -2,16 +2,18 @@
   <div class="content">
     <div class="header">
       <Search :onSearch="handleSearch" />
-      <Button route="create" caption="Adicionar"/>
+      <Button route="create" caption="Cadastrar Aluno"/>
     </div>
     <div class="student-data">
       <v-container>
         <v-row v-for="student in filteredStudents" :key="student.id">
-          <v-col> {{ student.id }} </v-col>
           <v-col> {{ student.name }} </v-col>
           <v-col> {{ student.cpf }} </v-col>
           <v-col> {{ student.email }} </v-col>
           <v-col> {{ student.academic_register }} </v-col>
+          <v-col>
+            <Button :route="'edit/' + student.id" caption="Editar"/>
+          </v-col>
           <v-col>
             <v-btn v-on:click="handleDelete(student.id)">
               Excluir
