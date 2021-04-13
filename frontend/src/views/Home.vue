@@ -1,6 +1,10 @@
 <template>
-  <div class="content">
-    <h1>Grupo A</h1>
+  <div class="content" style="flex: 1; display:flex; align-items: center; justify-content: center; background-color: #00aeb5">
+    <v-img      
+      v-bind:src="require('../assets/+a-01.png')"
+      contain
+      :height="200"
+    ></v-img>
   </div>
 </template>
 
