@@ -21,6 +21,5 @@ class Student extends Model
     public $editable = [
         'name',
         'email',
-        'cpf',
     ];
 }
