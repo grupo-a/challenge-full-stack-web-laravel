@@ -13,20 +13,29 @@
       </v-container> 
     </div>
     <div class="student-data">
-      <v-container>
-        <v-row v-for="student in filteredStudents" :key="student.id">
-          <v-col> {{ student.name }} </v-col>
-          <v-col> {{ student.cpf }} </v-col>
-          <v-col> {{ student.email }} </v-col>
-          <v-col> {{ student.academic_register }} </v-col>
-          <v-col>
-            <v-btn :to="'edit/' + student.id" append>Editar</v-btn>
-          </v-col>
-          <v-col>
-            <v-btn v-on:click="handleDelete(student.id)"> Excluir </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-data-table
+        dense
+        :headers="headers"
+        :items="filteredStudents"
+        item-key="id"
+        class="elevation-1"
+      >
+        <template v-slot:item="row">
+            <tr>
+              <td>{{row.item.academic_register}}</td>
+              <td>{{row.item.name}}</td>
+              <td align="center">{{formatCPF(row.item.cpf)}}</td>
+              <td align="center">
+                <v-btn class="mx-2" fab dark small color="#db1639" @click="handleDelete(row.item.id)">
+                    <v-icon dark>mdi-delete</v-icon>
+                </v-btn>              
+                <v-btn class="mx-2" fab dark small color="primary" :to="'edit/' + row.item.id" append>                
+                  <v-icon dark>mdi-circle-edit-outline</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+        </template>
+      </v-data-table>      
     </div>
   </div>
 </template>
@@ -45,6 +54,12 @@ export default {
       students: [],
       searchTerm: null,
       filteredStudents: this.students,
+      headers: [
+        { text: 'Registro Acadêmico'},
+        { text: 'Nome'},
+        { text: 'CPF', align: 'center'},
+        { text: 'Ações', sortable: false, align: 'center'},
+      ],
     };
   },
   mounted() {
@@ -93,6 +108,12 @@ export default {
           });
       });
     },
+    formatCPF(cpf){
+      return cpf.substr(0,3) + "." +
+      cpf.substr(3,3) + "." +
+      cpf.substr(6,3)+ "-" +
+      cpf.substr(9,2);
+    }
   },
 };
 </script>
