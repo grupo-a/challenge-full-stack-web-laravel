@@ -1,6 +1,6 @@
 <template>
   <div class="content">    
-    <h1>Create Form</h1>
+    <h1 align="center" class="primary--text">Cadastrando aluno</h1>
     <FormStudent />
   </div>
 </template>

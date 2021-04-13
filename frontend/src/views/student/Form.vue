@@ -59,10 +59,14 @@
             ></v-text-field>
           </v-col>
         </v-row>
+        <v-btn type="button" v-on:click="handleSubmit" color="primary" class="rounded-lg">
+          Salvar
+        </v-btn>
+        <v-btn type="button" to="/student" color="error" class="rounded-lg ml-4">
+          Cancelar
+        </v-btn>
       </v-container>
     </v-form>
-    <v-btn to="/student">Cancelar</v-btn>
-    <v-btn v-on:click="handleSubmit">Salvar</v-btn>
   </div>
 </template>
 
