@@ -7,10 +7,16 @@
     <div class="student-data">
       <v-container>
         <v-row v-for="student in filteredStudents" :key="student.id">
+          <v-col> {{ student.id }} </v-col>
           <v-col> {{ student.name }} </v-col>
           <v-col> {{ student.cpf }} </v-col>
           <v-col> {{ student.email }} </v-col>
           <v-col> {{ student.academic_register }} </v-col>
+          <v-col>
+            <v-btn v-on:click="handleDelete(student.id)">
+              Excluir
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -63,7 +69,21 @@ export default {
   methods: {
     handleSearch(searchTerm) {
       this.searchTerm = searchTerm;
-    },    
+    },
+    handleDelete(id){
+      this.$confirm("Deseja excluir o aluno?").then(() => {
+        api.delete(`/students/${id}`)
+        .then((response) => {
+          if (response.status == 204){
+            this.students = this.students.filter((student) => student.id != id);
+            this.$alert("Aluno excluído com sucesso.");
+          }
+        })
+        .catch(() => {
+          this.$alert("Ocorreu um erro inesperado.");
+        });
+      });
+    }
   },
 };
 </script>
