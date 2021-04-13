@@ -26,7 +26,7 @@
               <td>{{row.item.name}}</td>
               <td align="center">{{formatCPF(row.item.cpf)}}</td>
               <td align="center">
-                <v-btn class="mx-2" fab dark small color="#db1639" @click="handleDelete(row.item.id)">
+                <v-btn class="mx-2" fab dark small color="error" @click="handleDelete(row.item.id)">
                     <v-icon dark>mdi-delete</v-icon>
                 </v-btn>              
                 <v-btn class="mx-2" fab dark small color="primary" :to="'edit/' + row.item.id" append>                
