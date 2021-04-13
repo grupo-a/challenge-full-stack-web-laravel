@@ -1,8 +1,16 @@
 <template>
   <div class="content">
     <div class="header">
-      <Search :onSearch="handleSearch" />
-      <Button route="create" caption="Cadastrar Aluno"/>
+      <v-container>
+        <v-row align="center">
+          <v-col cols="9">          
+            <Search :onSearch="handleSearch"/>
+          </v-col>
+          <v-col cols="3">
+            <v-btn to="create" color="primary" class="rounded-lg" append>Cadastrar Aluno</v-btn>
+          </v-col>
+        </v-row>     
+      </v-container> 
     </div>
     <div class="student-data">
       <v-container>
@@ -12,12 +20,10 @@
           <v-col> {{ student.email }} </v-col>
           <v-col> {{ student.academic_register }} </v-col>
           <v-col>
-            <Button :route="'edit/' + student.id" caption="Editar"/>
+            <v-btn :to="'edit/' + student.id" append>Editar</v-btn>
           </v-col>
           <v-col>
-            <v-btn v-on:click="handleDelete(student.id)">
-              Excluir
-            </v-btn>
+            <v-btn v-on:click="handleDelete(student.id)"> Excluir </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -28,13 +34,11 @@
 <script>
 import api from "@/services/api";
 import Search from "@/components/Search";
-import Button from "@/components/Button";
 
 export default {
   name: "Student",
   components: {
     Search,
-    Button,
   },
   data() {
     return {
@@ -72,20 +76,23 @@ export default {
     handleSearch(searchTerm) {
       this.searchTerm = searchTerm;
     },
-    handleDelete(id){
+    handleDelete(id) {
       this.$confirm("Deseja excluir o aluno?").then(() => {
-        api.delete(`/students/${id}`)
-        .then((response) => {
-          if (response.status == 204){
-            this.students = this.students.filter((student) => student.id != id);
-            this.$alert("Aluno excluído com sucesso.");
-          }
-        })
-        .catch(() => {
-          this.$alert("Ocorreu um erro inesperado.");
-        });
+        api
+          .delete(`/students/${id}`)
+          .then((response) => {
+            if (response.status == 204) {
+              this.students = this.students.filter(
+                (student) => student.id != id
+              );
+              this.$alert("Aluno excluído com sucesso.");
+            }
+          })
+          .catch(() => {
+            this.$alert("Ocorreu um erro inesperado.");
+          });
       });
-    }
+    },
   },
 };
 </script>

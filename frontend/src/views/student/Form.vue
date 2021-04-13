@@ -61,20 +61,18 @@
         </v-row>
       </v-container>
     </v-form>
-    <Button route="/student" caption="Cancelar"/>
+    <v-btn to="/student">Cancelar</v-btn>
     <v-btn v-on:click="handleSubmit">Salvar</v-btn>
   </div>
 </template>
 
 <script>
 
-import Button from '@/components/Button.vue';
 import api from "@/services/api";
 
 export default {
   name: "FormStudent",
   components: {
-    Button
   },
   props: ["student_id"],
   data() {

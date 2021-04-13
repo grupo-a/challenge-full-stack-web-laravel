@@ -1,7 +1,21 @@
 <template>
   <div class="content">
-    <v-text-field v-model="searchTerm" :loading="loading"></v-text-field>
-    <v-btn v-on:click="handleSearch"> Buscar </v-btn>
+    <v-container>
+      <v-row align="center">
+        <v-text-field
+          class="pt-6"
+          dense
+          outlined
+          placeholder="Digite sua busca"
+          label="Pesquisa"
+          v-model="searchTerm"
+          :loading="loading"
+        ></v-text-field>
+        <v-btn class="ml-4" v-on:click="handleSearch" color="primary">
+          Buscar
+        </v-btn>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
