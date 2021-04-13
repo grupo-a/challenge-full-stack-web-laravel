@@ -10,6 +10,8 @@
           label="Pesquisa"
           v-model="searchTerm"
           :loading="loading"
+          clearable
+          v-on:keyup.enter="handleSearch"
         ></v-text-field>
         <v-btn class="ml-4" v-on:click="handleSearch" color="primary">
           Buscar
@@ -20,6 +22,7 @@
 </template>
 
 <script>
+
 export default {
   props: ["onSearch"],
   data() {
