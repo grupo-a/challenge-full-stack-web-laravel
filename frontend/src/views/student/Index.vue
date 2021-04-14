@@ -3,14 +3,16 @@
     <div class="header">
       <v-container>
         <v-row align="center">
-          <v-col cols="9">          
-            <Search :onSearch="handleSearch"/>
+          <v-col cols="9">
+            <Search :onSearch="handleSearch" />
           </v-col>
           <v-col cols="3">
-            <v-btn to="create" color="primary" class="rounded-lg" append>Cadastrar Aluno</v-btn>
+            <v-btn to="create" color="primary" class="rounded-lg" append
+              >Cadastrar Aluno</v-btn
+            >
           </v-col>
-        </v-row>     
-      </v-container> 
+        </v-row>
+      </v-container>
     </div>
     <div class="student-data">
       <v-data-table
@@ -21,21 +23,36 @@
         class="elevation-1"
       >
         <template v-slot:item="row">
-            <tr>
-              <td>{{row.item.academic_register}}</td>
-              <td>{{row.item.name}}</td>
-              <td align="center">{{formatCPF(row.item.cpf)}}</td>
-              <td align="center">
-                <v-btn class="mx-2" fab dark small color="error" @click="handleDelete(row.item.id)">
-                    <v-icon dark>mdi-delete</v-icon>
-                </v-btn>              
-                <v-btn class="mx-2" fab dark small color="primary" :to="'edit/' + row.item.id" append>                
-                  <v-icon dark>mdi-circle-edit-outline</v-icon>
-                </v-btn>
-              </td>
-            </tr>
+          <tr>
+            <td>{{ row.item.academic_register }}</td>
+            <td>{{ row.item.name }}</td>
+            <td align="center">{{ formatCPF(row.item.cpf) }}</td>
+            <td align="center">
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="error"
+                @click="handleDelete(row.item.id)"
+              >
+                <v-icon dark>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="primary"
+                :to="'edit/' + row.item.id"
+                append
+              >
+                <v-icon dark>mdi-circle-edit-outline</v-icon>
+              </v-btn>
+            </td>
+          </tr>
         </template>
-      </v-data-table>      
+      </v-data-table>
     </div>
   </div>
 </template>
@@ -55,10 +72,10 @@ export default {
       searchTerm: null,
       filteredStudents: this.students,
       headers: [
-        { text: 'Registro Acadêmico'},
-        { text: 'Nome'},
-        { text: 'CPF', align: 'center'},
-        { text: 'Ações', sortable: false, align: 'center'},
+        { text: "Registro Acadêmico" },
+        { text: "Nome" },
+        { text: "CPF", align: "center" },
+        { text: "Ações", sortable: false, align: "center" },
       ],
     };
   },
@@ -108,12 +125,17 @@ export default {
           });
       });
     },
-    formatCPF(cpf){
-      return cpf.substr(0,3) + "." +
-      cpf.substr(3,3) + "." +
-      cpf.substr(6,3)+ "-" +
-      cpf.substr(9,2);
-    }
+    formatCPF(cpf) {
+      return (
+        cpf.substr(0, 3) +
+        "." +
+        cpf.substr(3, 3) +
+        "." +
+        cpf.substr(6, 3) +
+        "-" +
+        cpf.substr(9, 2)
+      );
+    },
   },
 };
 </script>

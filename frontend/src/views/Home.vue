@@ -1,6 +1,15 @@
 <template>
-  <div class="content" style="flex: 1; display:flex; align-items: center; justify-content: center; background-color: #00aeb5">
-    <v-img      
+  <div
+    class="content"
+    style="
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #00aeb5;
+    "
+  >
+    <v-img
       v-bind:src="require('../assets/+a-01.png')"
       contain
       :height="200"

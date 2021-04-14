@@ -36,7 +36,7 @@ class StudentController extends Controller
             return $responseValidation;
         }
 
-        if ($this->hasStudentWithSameAcademicRegister($request->academic_register)){
+        if ($this->hasStudentWithSameAcademicRegister($request->academic_register)) {
             return response()->json(['error' => 'Esse registro acadêmico já foi informado para outro aluno! Verifique o valor informado.'])->setStatusCode(400);
         }
 
@@ -45,7 +45,8 @@ class StudentController extends Controller
         return $this->makeResponseWithStudentResource($student, 201);
     }
 
-    private function hasStudentWithSameAcademicRegister($academic_register){
+    private function hasStudentWithSameAcademicRegister($academic_register)
+    {
         $repeatedStudent = Student::where('academic_register', $academic_register)->get();
         return count($repeatedStudent) > 0;
     }

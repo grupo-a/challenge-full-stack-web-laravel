@@ -22,7 +22,6 @@
 </template>
 
 <script>
-
 export default {
   props: ["onSearch"],
   data() {
