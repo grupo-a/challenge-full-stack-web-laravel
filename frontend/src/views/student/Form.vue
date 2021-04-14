@@ -150,8 +150,14 @@ export default {
           this.$alert("Aluno incluído!");
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        if (error.response && (error.response.status == 400)){
+          this.$alert(error.response.data.error);
+        } else {
+          this.$alert("Ocorreu um erro inesperado."); 
         this.$alert("Ocorreu um erro inesperado.");
+          this.$alert("Ocorreu um erro inesperado."); 
+        }        
       });
     },
     updateStudent(){
